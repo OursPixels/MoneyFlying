@@ -2,3 +2,5 @@ MoneyPerMinute: 300 #每分钟扣得钱
 ExpPerMinute: 100 #每分钟扣得经验点数
 NoMoneyNotice: "&7&l[&e&lOursPixel&7&l] &7&l>>>> &b你没有足够的金币来飞行了." #金币不够
 NoExpNotice: "&7&l[&e&lOursPixel&7&l] &7&l>>>> &b你没有足够的经验来飞行了." #经验不够
+RunMoneyNotice: "&7&l[&e&lOursPixel&7&l] &7&l>>>> &b开始用金币飞行了."
+RunExpNotice: "&7&l[&e&lOursPixel&7&l] &7&l>>>> &b开始用经验飞行了."

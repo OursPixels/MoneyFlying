@@ -7,15 +7,21 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
+/**
+ * @author LocyDragon
+ */
 public class MoneyFlyingAPI {
-	public static HashMap<String,BukkitRunnable> expCache = new HashMap<>();
-	public static HashMap<String,BukkitRunnable> moneyCache = new HashMap<>();
+	public static HashMap<String, BukkitRunnable> expCache = new HashMap<>();
+	public static HashMap<String, BukkitRunnable> moneyCache = new HashMap<>();
+
 	public static boolean isPlayerFlyingWithExp(Player who) {
 		return expCache.keySet().contains(who.getName());
 	}
+
 	public static boolean isPlayerFlyingWithMoney(Player who) {
 		return moneyCache.keySet().contains(who.getName());
 	}
+
 	public static boolean stopByExp(Player who) {
 		who.setFlying(false);
 		if (!isPlayerFlyingWithExp(who)) {
@@ -26,6 +32,7 @@ public class MoneyFlyingAPI {
 		expCache.remove(who.getName());
 		return true;
 	}
+
 	public static boolean stopByMoney(Player who) {
 		who.setFlying(false);
 		if (!isPlayerFlyingWithMoney(who)) {
@@ -36,6 +43,7 @@ public class MoneyFlyingAPI {
 		moneyCache.remove(who.getName());
 		return true;
 	}
+
 	public static void startByMoney(Player who) {
 		BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
@@ -54,8 +62,9 @@ public class MoneyFlyingAPI {
 			}
 		};
 		moneyCache.put(who.getName(), runnable);
-        runnable.runTaskTimer(Main.getInstance(), 0, 20 * 60L);
+		runnable.runTaskTimer(Main.getInstance(), 0, 20 * 60L);
 	}
+
 	public static void startByExp(Player who) {
 		BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
@@ -73,7 +82,7 @@ public class MoneyFlyingAPI {
 				}
 			}
 		};
-        expCache.put(who.getName(), runnable);
+		expCache.put(who.getName(), runnable);
 		runnable.runTaskTimer(Main.getInstance(), 0, 20 * 60L);
 	}
 }
