@@ -25,6 +25,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new AntiListener(), this);
 		Bukkit.getLogger().info("注册事件完成!");
 		Bukkit.getLogger().info("金币&经验飞行插件加载完成.");
+		Bukkit.getPluginCommand("fl").setExecutor(new CommandsMain());
 		instance = this;
 	}
 

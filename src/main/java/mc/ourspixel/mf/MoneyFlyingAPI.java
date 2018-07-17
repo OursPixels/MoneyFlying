@@ -23,6 +23,7 @@ public class MoneyFlyingAPI {
 	}
 
 	public static boolean stopByExp(Player who) {
+		who.setAllowFlight(false);
 		who.setFlying(false);
 		if (!isPlayerFlyingWithExp(who)) {
 			return false;
@@ -34,6 +35,7 @@ public class MoneyFlyingAPI {
 	}
 
 	public static boolean stopByMoney(Player who) {
+		who.setAllowFlight(false);
 		who.setFlying(false);
 		if (!isPlayerFlyingWithMoney(who)) {
 			return false;
@@ -51,10 +53,13 @@ public class MoneyFlyingAPI {
 				int needMoney = Main.getInstance().getConfig().getInt("MoneyPerMinute");
 				if (Main.economy.has(who, needMoney)) {
 					if (!who.isFlying()) {
+						who.setAllowFlight(true);
 						who.setFlying(true);
 					}
-					Main.economy.depositPlayer(who, needMoney);
+					Main.economy.withdrawPlayer(who, needMoney);
+					who.sendMessage(StringUtil.me("&7&l[&e&lOursPixel&7&l] &7&l>>>> &b扣除了"+needMoney+"元."));
 				} else {
+					who.setAllowFlight(false);
 					who.setFlying(false);
 					stopByMoney(who);
 					who.sendMessage(StringUtil.me(Main.getInstance().getConfig().getString("NoMoneyNotice")));
@@ -72,10 +77,13 @@ public class MoneyFlyingAPI {
 				int needExp = Main.getInstance().getConfig().getInt("ExpPerMinute");
 				if (Bukkit.getPlayer(who.getName()).getTotalExperience() >= needExp) {
 					if (!who.isFlying()) {
+						who.setAllowFlight(true);
 						who.setFlying(true);
 					}
-					who.setTotalExperience(who.getTotalExperience() - needExp);
+					SetExpFix.setTotalExperience(who, who.getTotalExperience() - needExp);
+					who.sendMessage(StringUtil.me("&7&l[&e&lOursPixel&7&l] &7&l>>>> &b扣除了"+needExp+"点经验."));
 				} else {
+					who.setAllowFlight(false);
 					who.setFlying(false);
 					stopByExp(who);
 					who.sendMessage(StringUtil.me(Main.getInstance().getConfig().getString("NoExpNotice")));
